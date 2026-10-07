@@ -1,4 +1,9 @@
+source: _src
+destination: docs
+include:
+  - .nojekyll
 exclude:
   - tools/
   - doc/
   - justfile
+

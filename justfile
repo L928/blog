@@ -2,7 +2,7 @@ set windows-shell := ["cmd.exe", "/c"]
 
 [windows]
 default:
-  @echo this must run on WSL
+  @echo this must run on an isolated WSL or native linux (vm)
 
 
 [linux]
@@ -17,6 +17,16 @@ hw:
 [linux]
 run:
   jekyll serve --host 0.0.0.0 --livereload
+
+# build the blog to docs/ folder
+[linux]
+build:
+  jekyll build
+
+# deploy the blog by pushing commits to github
+[linux]
+deploy: build
+  git push github main
 
 # setup ruby and jekyll to build pages locally
 [linux]
