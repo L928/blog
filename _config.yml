@@ -1,0 +1,4 @@
+exclude:
+  - tools/
+  - doc/
+  - justfile
