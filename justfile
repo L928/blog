@@ -16,7 +16,7 @@ hw:
 # run local jekyll server to test pages
 [linux]
 run:
-  jekyll serve --host 0.0.0.0 --livereload
+  jekyll serve --host 0.0.0.0 --livereload --force_polling
 
 # build the blog to docs/ folder
 [linux]

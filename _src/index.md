@@ -1,7 +1,5 @@
 ---
-title: Hello World
+layout: default
+title: Home
 ---
-
-# hello world
-`"Hello world from _src"`
 

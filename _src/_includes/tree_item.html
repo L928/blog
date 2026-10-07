@@ -1,0 +1,30 @@
+{% assign current_dir = include.dir %}
+{% assign pages_in_dir = site.pages | where: "dir", current_dir | sort: "title" %}
+{% for page in pages_in_dir %}
+  <li class="tree-item">
+    <a href="{{ page.url | relative_url }}" class="tree-link{% if page.url == page_url %} active{% endif %}">{{ page.title | default: page.name | replace: ".md", "" }}</a>
+  </li>
+{% endfor %}
+
+{% assign subdirs = "" | split: "," %}
+{% for page in site.pages %}
+  {% if page.dir != current_dir and page.dir contains current_dir %}
+    {% assign subdir_path = page.dir | remove_first: current_dir | split: "/" | first %}
+    {% assign full_subdir = current_dir | append: subdir_path | append: "/" %}
+    {% unless subdirs contains full_subdir %}
+      {% assign subdirs = subdirs | push: full_subdir %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% for dir in subdirs | sort %}
+  {% assign dir_name = dir | split: "/" | last | replace: "%20", " " %}
+  <li>
+    <details open>
+      <summary>📁 {{ dir_name | capitalize }}</summary>
+      <ul class="tree-list">
+        {% include tree_item.html dir=dir %}
+      </ul>
+    </details>
+  </li>
+{% endfor %}

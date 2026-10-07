@@ -1,3 +1,9 @@
+title: "Embedded Systems Lab"
+subtitle: "Firmware, Microcontrollers, and Low-Level Architecture"
+description: "Technical publications, firmware architecture, and hardware notes."
+baseurl: "/blog"
+url: "https://l928.github.io"
+
 source: _src
 destination: docs
 include:
@@ -6,4 +12,12 @@ exclude:
   - tools/
   - doc/
   - justfile
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+
 
