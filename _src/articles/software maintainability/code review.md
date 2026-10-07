@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Direct Code Review
+title: direct code review
 date: 2026-10-07
 categories: [articles, software maintainability]
 ---
@@ -30,7 +30,7 @@ I consider this very inefficient (effort vs. gain) and very ineffective (don't f
 
 So, I propose a different method of code review, that addresses the problem of maintainability more directly.
 
-# Direct code review
+# direct code review
 1) A reviewer should do only one thing: Read the code. 
 
 If he can read it, the code is readable. If he can't, the code is not readable and something must be done about it.
