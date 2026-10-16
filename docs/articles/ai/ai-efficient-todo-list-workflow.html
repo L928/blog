@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>efficient todo list workflow with AI | Oliver Richter</title>
+  <link rel="stylesheet" href="/blog/assets/css/syntax.css">
+  <link rel="stylesheet" href="/blog/assets/css/style.css">
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <a href="/blog/" class="site-title">Oliver Richter</a>
+        <span class="site-subtitle">My personal blog</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Path / Breadcrumb Bar -->
+  <nav class="page-path-bar" aria-label="Breadcrumb">
+    <a href="/blog/">root</a>
+    
+      
+        <span class="path-separator">/</span>
+        <span>articles</span>
+      
+    
+    <span class="path-separator">/</span>
+    <span class="path-current">efficient todo list workflow with AI</span>
+  </nav>
+
+  <!-- Main Layout with Sidebar Tree -->
+  <div class="layout-container">
+    <aside class="sidebar">
+      <div class="sidebar-title">Project Tree</div>
+      <nav class="tree-nav">
+        <ul class="tree-list" style="border-left: none; margin-left: 0; padding-left: 0.5rem;">
+          
+
+
+  <li class="tree-item">
+    <a href="/blog/" class="tree-link">Home</a>
+  </li>
+
+
+
+
+
+
+  
+  <li>
+    <details open>
+      <summary>📁 Articles</summary>
+      <ul class="tree-list">
+        
+
+
+
+
+
+
+
+  
+  <li>
+    <details open>
+      <summary>📁 Ai</summary>
+      <ul class="tree-list">
+        
+
+
+  <li class="tree-item">
+    <a href="/blog/articles/ai/ai-efficient-todo-list-workflow.html" class="tree-link">efficient todo list workflow with AI</a>
+  </li>
+
+
+
+
+
+
+
+      </ul>
+    </details>
+  </li>
+
+  
+  <li>
+    <details open>
+      <summary>📁 Software maintainability</summary>
+      <ul class="tree-list">
+        
+
+
+  <li class="tree-item">
+    <a href="/blog/articles/software%20maintainability/code%20review.html" class="tree-link">direct code review</a>
+  </li>
+
+
+
+
+
+
+
+      </ul>
+    </details>
+  </li>
+
+
+      </ul>
+    </details>
+  </li>
+
+
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="content-wrapper">
+      <article class="markdown-body">
+        <header class="article-header">
+          <h1 class="article-title">efficient todo list workflow with AI</h1>
+          
+            <div class="article-meta">
+              <span>Date: 2026-10-12</span>
+              
+            </div>
+          
+        </header>
+
+        <h1 id="introduction">Introduction</h1>
+<p>Coding with AI has polarized opinions these days:</p>
+<ul>
+  <li>Proponents state “it’s awesome and can do anything with just the right magic prompt.”</li>
+  <li>Critics say “It can’t write quality software”
+I am on the critics side, but foud a way to make AI much more workable for real world projects and workflows.</li>
+</ul>
+
+<p>The trick is, that i work with a todo-list that I control, and let AI just do the work. If I don’t know how to do something, I let AI create my todo list.</p>
+
+<p>And importantly, that goes all in a flow state. All flowing, flowing, flowing. Quickly, without accidents.</p>
+
+<p>Here is how i do that.</p>
+
+<h2 id="1-definition-of-done">1) definition of done</h2>
+<p>My todo list is actually a “definition of done” list, a “dod”-list, not a “todo”-list.</p>
+
+<p>I find that useful, since it is easier to write down, easier to understand, and independent of the actual action. And an important psychological advantage: The result is envisioned.</p>
+
+<p>I make that with sub items, herarchy as deep as i need, and use a simple typography, but that is really personal. I avoid unicode.
+<code class="language-plaintext highlighter-rouge">[ ]</code> item undone
+<code class="language-plaintext highlighter-rouge">[J]</code> item done (that resembles a checkmark)
+<code class="language-plaintext highlighter-rouge">[a]</code> item assigned to ai
+<code class="language-plaintext highlighter-rouge">[j]</code> done by ai (so it’s clear what needs human review)
+Example:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ ] bug 42 is fixed
+  [a] local test passed
+  [ ] code change is implemented and committed
+  [ ] CI/CD test passed
+</code></pre></div></div>
+<p>I name it dod.md (markdown) and I revision control it - that makes it very helpful to see the current state of the commit. I don’t need big commit messages, I don’t need an extra change log. All done in one strike. Very efficient !</p>
+
+<p>Another important benefit: I can exactly control how much work is done by AI in one step. This way, I can follow precisely what AI is doing, and can fully supervise how the work is done.</p>
+
+<h2 id="2-configuring-the-ai">2) configuring the ai</h2>
+<p>I have a few rules and commands for the AI, defined in <code class="language-plaintext highlighter-rouge">AGENTS.md</code> in my case. Soemthing like this ( feel free to make your own thing by using this as inspiration and integrating it into your workflow ).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## commands
+
+=todo &lt;prompt&gt;
+Propose items for 'dod.md', so the user can take them as starting point.
+Format proposed dod items inside a code fenced markdown block, like this:
+```
+[ ] item
+  [ ] sub item
+```
+With proper newline, indentation, and no extras.
+
+=preview
+Check all items assigned to ai by `[a]` and 
+validate if they can be implemented.
+Give a description of how to implement it.
+
+=go
+For all available, visible, accessible dod.md files:
+Check all items assigned to ai by `[a]` and 
+validate if they can be implemented.
+
+For each such item that can be implemented,
+do so so without any additinal question or discussion.
+
+For each such item that can not be implemented, give the dod.md file line number where that item starts, and give the reasons why it can't be implemented.
+Don't be verbose, give a short and concise note.
+
+</code></pre></div></div>
+
+<h2 id="how-to-use-that">how to use that</h2>
+<p>1) have a clean repo
+So you can then review the changes together with their “dod” items.</p>
+
+<p>2) prompt <code class="language-plaintext highlighter-rouge">=todo</code> and what you want, take the responsed “dod” list, copy it to your dod.md file and edit it to your needs.</p>
+
+<p>3) just say <code class="language-plaintext highlighter-rouge">=go</code> and come back when AI is ready.</p>
+
+<p>4) Now, <code class="language-plaintext highlighter-rouge">git diff --word-diff=color</code> shows the items worked on, their state, and all changes in that regard. You can now review this.</p>
+
+<p>5) Repeat</p>
+
+<p>6) After final polish or several refinement steps, whatever
+, make your commit.</p>
+
+<p>7) get your clean commit message
+You may just copy paste the first level items with their [J] and then even the git log messages are totally polished in an instance. Searchable, understandable, relatable.</p>
+
+<p>It is fast, efficient and straightforward.</p>
+
+<h2 id="final-words">final words</h2>
+<p>My experience, so far, is, that software development becomes much more efficient and high quality. I can probably program anything in any language. I tried many. And I can use my knowledge and experience to make the product high quality, maintainable, bug free, fully tested, and suitable for professional grade, or even mission critical software.</p>
+
+<p>I am the human guardian that don’t allow AI to produce something that goes out of my control.</p>
+
+
+      </article>
+    </main>
+  </div>
+
+</body>
+</html>
